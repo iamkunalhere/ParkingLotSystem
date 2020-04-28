@@ -6,7 +6,8 @@ class ParkingLot {
         return true;
     }
 
-    carUnParked() {
+    carUnParked(carNumber) {
+        this.parkingLot.delete(carNumber);
         return true;
     }
 }
