@@ -7,7 +7,7 @@ class ParkingLot {
     }
 
     carUnParked() {
-        
+        return true;
     }
 }
 
