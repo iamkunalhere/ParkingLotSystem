@@ -1,7 +1,7 @@
 class ParkingLot {
     
-    carParked() {
-
+    carParked(carNumber,carName) {
+        return true;
     }
 }
 
