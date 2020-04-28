@@ -18,4 +18,17 @@ it('when car is unparked should return true', function() {
     assert.equal(true,unParked);
 });
 
+// test to notify with message to parking lot owner if parking lot is full or not
+it('when parking lot is full should return message', function() {
+    try {
+    let parkingLot = new Parking();
+    parkingLot.carParked("car1","Audi");
+    parkingLot.carParked("car2","bmw");
+    parkingLot.carParked("car3","ford");
+    parkingLot.carParked("car4","benz");
+    } catch (message) {
+    assert.equal(message.message,'parking lot is full');
+    }
+});
+
 });
