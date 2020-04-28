@@ -5,6 +5,10 @@ class ParkingLot {
         this.parkingLot.set(carNumber,carName);
         return true;
     }
+
+    carUnParked() {
+        
+    }
 }
 
 module.exports = ParkingLot;

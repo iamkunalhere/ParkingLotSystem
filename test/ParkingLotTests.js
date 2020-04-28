@@ -10,4 +10,11 @@ it('when car is parked should return true', function() {
     assert.equal(true,parked);
 });
 
+it.only('when car is unparked should return true', function() {
+    let parkingLot = new Parking();
+    parkingLot.carParked("car1","Audi");
+    let unParked = parkingLot.carUnParked("car1")
+    assert.equal(true,unParked);
+});
+
 });
