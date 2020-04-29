@@ -47,7 +47,8 @@ it('when parking lot has space again should return true', function(){
 
 });
 
-it.only('when parking attendent park the car should return true', function(){
+// test to check that car is parked by attendent
+it('when parking attendent park the car should return true', function(){
     let parkingAttendent = new ParkingAttendent();
     let isParking = parkingAttendent.parkTheCar();
     expect(isParking).to.eql(true);
