@@ -19,6 +19,10 @@ class ParkingLot {
     carUnParked(carNumber) {
         this.parkingLot.delete(carNumber);
         this.counter--;
+        if (this.counter == this.PARKING_LOT_CAPACITY-1) {
+            let parkingOwner = new parkingLotOwner();
+            parkingOwner.parkingSpaceAvailable();
+        }
         return true;
     }
     // function to check parking lot is full or not
