@@ -4,6 +4,7 @@ const sinon = require('sinon');
 const ParkingLotOwner = require('../main/ParkingLotOwner');
 const expect = require('chai').expect;
 const AirportSecurityPersonal = require('../main/AirportSecurityPersonal');
+const ParkingAttendent = require('../main/ParkingAttendent');
 
 describe('Tests on Parking Lot System', function() {
 
@@ -45,6 +46,12 @@ it('when parking lot has space again should return true', function(){
     assert.isTrue(isSpace);
 
 });
+
+it.only('when parking attendent park the car should return true', function(){
+    let parkingAttendent = new ParkingAttendent();
+    let isParking = parkingAttendent.parkTheCar();
+    expect(isParking).to.eql(true);
+})
 
 });
 
