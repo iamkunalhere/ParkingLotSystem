@@ -36,6 +36,10 @@ class ParkingLot {
         }
         return false;
     }
+    //functio to find car
+    findCar() {
+        return true;
+    }
 }
 
 module.exports = ParkingLot;

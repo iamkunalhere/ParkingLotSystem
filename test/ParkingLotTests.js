@@ -55,7 +55,7 @@ it('when parking attendent park the car should return true', function(){
 });
 
 // test to check that driver finds his car
-it.only('when driver finds his car should return true', function(){
+it('when driver finds his car should return true', function(){
     let parkingLot = new Parking();
     parkingLot.carParked("car1","audi");
     let isFind = parkingLot.findCar("car1");
