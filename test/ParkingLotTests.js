@@ -31,4 +31,15 @@ it('when parking lot is full should return message', function() {
     }
 });
 
+// test to notify with message to parking lot owner if parking lot has space again
+it('when parking lot has space again should return true', function(){
+    let parkingLot = new Parking();
+    parkingLot.carParked("car1","Audi");
+    parkingLot.carParked("car2","bmw");
+    parkingLot.carParked("car3","ford");
+    let isSpace = parkingLot.carUnParked("car1");
+    assert.isTrue(isSpace);
+
+});
+
 });
