@@ -37,7 +37,8 @@ class ParkingLot {
         return false;
     }
     //functio to find car
-    findCar() {
+    findCar(carNumber) {
+        console.log(this.parkingLot.get(carNumber));
         return true;
     }
 }
