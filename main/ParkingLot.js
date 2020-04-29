@@ -1,4 +1,5 @@
 const parkingLotOwner = require('../main/ParkingLotOwner');
+const airportSecurityPersonal = require('../main/AirportSecurityPersonal');
 class ParkingLot {
     constructor() {
         this.counter = 0;
@@ -25,6 +26,8 @@ class ParkingLot {
         if (this.counter == this.PARKING_LOT_CAPACITY) {
             let parkingOwner = new parkingLotOwner();
             parkingOwner.parkingLotIsFull();
+            let airportSecurity = new airportSecurityPersonal();
+            airportSecurity.parkingLotIsFull();
             return true;
         }
         return false;
