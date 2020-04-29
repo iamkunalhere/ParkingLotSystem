@@ -3,6 +3,7 @@ const Parking = require('../main/ParkingLot');
 const sinon = require('sinon');
 const ParkingLotOwner = require('../main/ParkingLotOwner');
 const expect = require('chai').expect;
+const AirportSecurityPersonal = require('../main/AirportSecurityPersonal');
 
 describe('Tests on Parking Lot System', function() {
 
@@ -50,9 +51,25 @@ it('when parking lot has space again should return true', function(){
 describe('Tests using Sinon', function(){
 
 // test to notify with message to parking lot owner if parking lot is full or not
-it.only('when parking lot is full should return message', function() {
+it('when parking lot is full should return message', function() {
     let parkingLotOwner = new ParkingLotOwner();
     var stub = sinon.stub(parkingLotOwner,'parkingLotIsFull');
+    try {
+    let parkingLot = new Parking();
+    parkingLot.carParked("car1","Audi");
+    parkingLot.carParked("car2","bmw");
+    parkingLot.carParked("car3","ford");
+    parkingLot.carParked("car4","benz");
+    } catch (message) {
+    expect(message.message).to.eql('parking lot is full');
+    }
+    stub.restore();
+});
+
+// test to notify with message to airport security personal if parking lot is full or not
+it.only('when parking lot is full should return message', function() {
+    let airportSecurityPersonal = new AirportSecurityPersonal();
+    let stub = sinon.stub(airportSecurityPersonal,'parkingLotIsFull');
     try {
     let parkingLot = new Parking();
     parkingLot.carParked("car1","Audi");
