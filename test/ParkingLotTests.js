@@ -67,7 +67,7 @@ it('when parking lot is full should return message', function() {
 });
 
 // test to notify with message to airport security personal if parking lot is full or not
-it.only('when parking lot is full should return message', function() {
+it('when parking lot is full should return message', function() {
     let airportSecurityPersonal = new AirportSecurityPersonal();
     let stub = sinon.stub(airportSecurityPersonal,'parkingLotIsFull');
     try {
@@ -79,6 +79,19 @@ it.only('when parking lot is full should return message', function() {
     } catch (message) {
     expect(message.message).to.eql('parking lot is full');
     }
+    stub.restore();
+});
+
+// test to notify with message to parking lot owner if parking lot has space again
+it('when parking lot has space again should return true', function(){
+    let parkingLotOwner = new ParkingLotOwner();
+    var stub = sinon.stub(parkingLotOwner,'parkingSpaceAvailable');
+    let parkingLot = new Parking();
+    parkingLot.carParked("car1","Audi");
+    parkingLot.carParked("car2","bmw");
+    parkingLot.carParked("car3","ford");
+    let isSpace = parkingLot.carUnParked("car1");
+    assert.isTrue(isSpace);
     stub.restore();
 });
 
