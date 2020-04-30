@@ -2,6 +2,9 @@ const parkingLotOwner = require('../main/ParkingLotOwner');
 const airportSecurityPersonal = require('../main/AirportSecurityPersonal');
 class ParkingLot {
     constructor() {
+        this.parkingOwner = new parkingLotOwner();
+        this.airportSecurity = new airportSecurityPersonal();
+        this.parkingLot = new Map();
         this.counter = 0;
         this.PARKING_LOT_CAPACITY = 3;
     }
@@ -10,7 +13,6 @@ class ParkingLot {
         if(this.isParkingLotFull()) {
             throw new Error('parking lot is full');
         }
-        this.parkingLot = new Map();
         this.parkingLot.set(carNumber,carName);
         this.counter++;
         return true;
@@ -20,18 +22,15 @@ class ParkingLot {
         this.parkingLot.delete(carNumber);
         this.counter--;
         if (this.counter == this.PARKING_LOT_CAPACITY-1) {
-            let parkingOwner = new parkingLotOwner();
-            parkingOwner.parkingSpaceAvailable();
+            this.parkingOwner.parkingSpaceAvailable();
         }
         return true;
     }
     // function to check parking lot is full or not
     isParkingLotFull() {
         if (this.counter == this.PARKING_LOT_CAPACITY) {
-            let parkingOwner = new parkingLotOwner();
-            parkingOwner.parkingLotIsFull();
-            let airportSecurity = new airportSecurityPersonal();
-            airportSecurity.parkingLotIsFull();
+            this.parkingOwner.parkingLotIsFull();
+            this.airportSecurity.parkingLotIsFull();
             return true;
         }
         return false;
