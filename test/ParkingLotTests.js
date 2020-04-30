@@ -35,18 +35,20 @@ it('when parking lot is full should return message', function() {
     this.parkingLot.carParked("car3","ford");
     this.parkingLot.carParked("car4","benz");
     } catch (message) {
-    assert.equal(message.message,'parking lot is full');
+    assert.equal(message.message,'Parking lot is full');
     }
 });
 
 // test to notify with message to parking lot owner if parking lot has space again
-it('when parking lot has space again should return true', function(){
+it('when parking lot has space again should return message', function(){
+    try{
     this.parkingLot.carParked("car1","Audi");
     this.parkingLot.carParked("car2","bmw");
     this.parkingLot.carParked("car3","ford");
-    let isSpace = this.parkingLot.carUnParked("car1");
-    assert.isTrue(isSpace);
-
+    this.parkingLot.carUnParked("car1");
+    }catch(message) {
+    assert.equal(message.message,'Parking lot has space again');
+    }
 });
 
 // test to check that car is parked by attendent
@@ -84,7 +86,7 @@ it('when parking lot is full should return message', function() {
     this.parkingLot.carParked("car3","ford");
     this.parkingLot.carParked("car4","benz");
     } catch (message) {
-    expect(message.message).to.eql('parking lot is full');
+    expect(message.message).to.eql('Parking lot is full');
     }
 });
 
@@ -97,18 +99,21 @@ it('when parking lot is full should return message', function() {
     this.parkingLot.carParked("car3","ford");
     this.parkingLot.carParked("car4","benz");
     } catch (message) {
-    expect(message.message).to.eql('parking lot is full');
+    expect(message.message).to.eql('Parking lot is full');
     }
 });
 
 // test to notify with message to parking lot owner if parking lot has space again
-it('when parking lot has space again should return true', function(){
+it('when parking lot has space again should return message', function(){
+    try {
     this.stub = sinon.stub(this.parkingLotOwner,'parkingSpaceAvailable');
     this.parkingLot.carParked("car1","Audi");
     this.parkingLot.carParked("car2","bmw");
     this.parkingLot.carParked("car3","ford");
-    let isSpace = this.parkingLot.carUnParked("car1");
-    assert.isTrue(isSpace);
+    this.parkingLot.carUnParked("car1");
+    } catch(message) {
+    assert.equal(message.message,'Parking lot has space again');
+    }
 });
 
 });

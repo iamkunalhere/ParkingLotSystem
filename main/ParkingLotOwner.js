@@ -1,9 +1,9 @@
 class ParkingLotOwner {
     parkingLotIsFull() {
-        console.log("ParkingLotOwner: Parking lot is full");
+        throw new Error('Parking lot is full');
     }
     parkingSpaceAvailable() {
-        console.log("ParkingLotOwner: Parking lot has space again");
+        throw new Error('Parking lot has space again');
     }
 }
 

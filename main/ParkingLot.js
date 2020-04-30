@@ -11,7 +11,7 @@ class ParkingLot {
     // function to park the car
     carParked(carNumber,carName) {
         if(this.isParkingLotFull()) {
-            throw new Error('parking lot is full');
+            throw new Error('Parking lot is full');
         }
         this.parkingLot.set(carNumber,carName);
         this.counter++;
