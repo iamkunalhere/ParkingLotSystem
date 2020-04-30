@@ -56,10 +56,10 @@ it('when parking attendent park the car should return true', function(){
 });
 
 // test to check that driver finds his car
-it('when driver finds his car should return true', function(){
+it('when driver finds his car should return car information', function(){
     this.parkingLot.carParked("car1","audi");
     let isFind = this.parkingLot.findCar("car1");
-    expect(isFind).to.eql(true);
+    expect(isFind).to.eql("audi");
 });
 
 });
