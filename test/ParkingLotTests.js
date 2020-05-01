@@ -11,7 +11,7 @@ describe('Tests on Parking Lot System', function() {
     beforeEach(function(){
         this.parkingLot = new Parking();
         this.parkingAttendent = new ParkingAttendent();
-
+        
     });
 
 // test to check car is parked in parking lot or not 
@@ -62,6 +62,13 @@ it('when driver finds his car should return car information', function(){
     this.parkingLot.carParked("car1","audi");
     let isFind = this.parkingLot.findCar("car1");
     expect(isFind).to.eql("audi");
+});
+
+// test to check that parking lot owner should know when car is parked in lot
+it.only('when car is parked with time should return true', function() {
+    carInfo = {name:"audi",parkingTime:Date()}
+    let parkedOnTime  = this.parkingLot.carParked("car1",carInfo);
+    expect(parkedOnTime).to.eql(true);
 });
 
 });

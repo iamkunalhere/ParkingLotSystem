@@ -9,11 +9,11 @@ class ParkingLot {
         this.PARKING_LOT_CAPACITY = 3;
     }
     // function to park the car
-    carParked(carNumber,carName) {
+    carParked(carNumber,carInfo) {
         if(this.isParkingLotFull()) {
             throw new Error('Parking lot is full');
         }
-        this.parkingLot.set(carNumber,carName);
+        this.parkingLot.set(carNumber,carInfo);
         this.counter++;
         return true;
     }
