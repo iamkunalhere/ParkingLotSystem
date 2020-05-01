@@ -14,6 +14,7 @@ class ParkingLot {
             throw new Error('Parking lot is full');
         }
         this.parkingLot.set(carNumber,carInfo);
+        this.parkingOwner.getCarParkedTime(carInfo.parkingTime);
         this.counter++;
         return true;
     }

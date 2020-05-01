@@ -53,7 +53,8 @@ it('when parking lot has space again should return message', function(){
 
 // test to check that car is parked by attendent
 it('when parking attendent park the car should return true', function(){
-    let isParking = this.parkingAttendent.parkTheCar();
+    carInfo = {name:"audi",parkingTime:Date()}
+    let isParking = this.parkingAttendent.parkTheCar("car1",carInfo);
     expect(isParking).to.eql(true);
 });
 
@@ -65,7 +66,7 @@ it('when driver finds his car should return car information', function(){
 });
 
 // test to check that parking lot owner should know when car is parked in lot
-it.only('when car is parked with time should return true', function() {
+it('when car is parked with time should return true', function() {
     carInfo = {name:"audi",parkingTime:Date()}
     let parkedOnTime  = this.parkingLot.carParked("car1",carInfo);
     expect(parkedOnTime).to.eql(true);

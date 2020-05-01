@@ -3,8 +3,8 @@ class ParkingAttendent {
     constructor() {
         this.parkingLot = new Parking();
     }
-    parkTheCar() {
-        return this.parkingLot.carParked();
+    parkTheCar(carNumber,carInfo) {
+        return this.parkingLot.carParked(carNumber,carInfo);
     }
 }
 
