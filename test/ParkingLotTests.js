@@ -72,6 +72,13 @@ it('when car is parked with time should return true', function() {
     expect(parkedOnTime).to.eql(true);
 });
 
+// test to check that attendent should evenly park the cars in slots
+it('when car is parked evenly in slots should return true', function() {
+    carInfo = {name:"audi",parkingTime:Date()}
+    let isParkedEvenly = this.parkingAttendent.parkTheCar("car1",carInfo);
+    expect(isParkedEvenly).to.eql(true);
+});
+
 });
 
 describe('Tests using Sinon', function(){
