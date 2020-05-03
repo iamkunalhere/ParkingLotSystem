@@ -47,7 +47,8 @@ class ParkingLot {
     }
     //function to find car
     findCar(carNumber) {
-        return this.parkingLot.get(carNumber);
+        let isFind =  this.parkingLot.get(carNumber);
+        return isFind;
     }
     //function to park in slots
     parkInSlots(carNumber) {
