@@ -5,6 +5,7 @@ const parkingLotOwner = require('../main/ParkingLotOwner');
 const expect = require('chai').expect;
 const airportSecurityPersonal = require('../main/AirportSecurityPersonal');
 const parkingAttendent = require('../main/ParkingAttendent');
+const driver = require('../main/DriverType');
 
 describe('Tests on Parking Lot System', function() {
 
@@ -76,6 +77,13 @@ it('given car is parked evenly in slots should return true', function() {
     carInfo = {name:"audi",parkingTime:Date()};
     let isParkedEvenly = parkingAttendent.parkTheCar("car1",carInfo);
     expect(isParkedEvenly).to.eql(true);
+});
+
+// test to check that attendent should park handicap's car to the nearest slot in parking lot
+it.only('given handicap driver park car in nearest slot should return true', function() {
+    carInfo = {name:"audi",parkingTime:Date()};
+    let isParkNear = parkingAttendent.parkTheCar("car1",carInfo,driver.HANDICAP);
+    expect(isParkNear).to.eql(true);
 });
 
 });
