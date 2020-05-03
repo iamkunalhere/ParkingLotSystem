@@ -5,15 +5,20 @@ class ParkingLot {
         this.parkingLot = new Map();
         this.counter = 0;
         this.PARKING_LOT_CAPACITY = 9;
+        this.parkingSlots = [3,3,3];
         this.firstSlot = [];
         this.secondSlot = [];
         this.thirdSlot = [];
         this.slotCounter = 0;
     }
     // function to park the car
-    carParked(carNumber,carInfo) {
+    carParked(carNumber,carInfo,driverType) {
         if(this.isParkingLotFull()) {
             return ('Parking lot is full');
+        }
+        if (driverType = 'HANDICAP') {
+            let slot = this.findNearestSlot();
+            this.parkingSlots[slot] = carNumber;
         }
         if (this.slotCounter == 0) {
             this.firstSlot.push(carNumber);
@@ -56,6 +61,15 @@ class ParkingLot {
     findCar(carNumber) {
         let isFind =  this.parkingLot.get(carNumber);
         return isFind;
+    }
+    //function to find nearest slot in parking lot
+    findNearestSlot() {
+        for(let position = 0;position < this.parkingSlots.length; position++) {
+            if(this.parkingSlots[position] == undefined) {
+                return position;
+            }
+        }
+        return false;
     }
     
 }
