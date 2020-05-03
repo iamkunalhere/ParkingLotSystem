@@ -6,9 +6,6 @@ class ParkingLot {
         this.counter = 0;
         this.PARKING_LOT_CAPACITY = 9;
         this.parkingSlots = [3,3,3];
-        this.firstSlot = [];
-        this.secondSlot = [];
-        this.thirdSlot = [];
         this.slotCounter = 0;
     }
     // function to park the car
@@ -20,18 +17,7 @@ class ParkingLot {
             let slot = this.findNearestSlot();
             this.parkingSlots[slot] = carNumber;
         }
-        if (this.slotCounter == 0) {
-            this.firstSlot.push(carNumber);
-            this.slotCounter++;
-        }
-        if (this.slotCounter == 1) {
-            this.secondSlot.push(carNumber);
-            this.slotCounter++;
-        }
-        if (this.slotCounter == 2) {
-            this.thirdSlot.push(carNumber);
-            this.slotCounter = 0;
-        }
+        this.parkingSlots.push(carNumber);
         this.parkingLot.set(carNumber,carInfo);
         if (carInfo.parkingTime != null) {
         parkingLotOwner.getCarParkedTime(carInfo.parkingTime);

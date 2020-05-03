@@ -80,7 +80,7 @@ it('given car is parked evenly in slots should return true', function() {
 });
 
 // test to check that attendent should park handicap's car to the nearest slot in parking lot
-it.only('given handicap driver park car in nearest slot should return true', function() {
+it('given handicap driver park car in nearest slot should return true', function() {
     carInfo = {name:"audi",parkingTime:Date()};
     let isParkNear = parkingAttendent.parkTheCar("car1",carInfo,driver.HANDICAP);
     expect(isParkNear).to.eql(true);
