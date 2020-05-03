@@ -1,11 +1,14 @@
-const Parking = require('../main/ParkingLot');
+const ParkingLot = require('../main/ParkingLot');
 class ParkingAttendent {
+
     constructor() {
-        this.parkingLot = new Parking();
+        this.parkingLot = new ParkingLot(); 
     }
+
     parkTheCar(carNumber,carInfo) {
-        return this.parkingLot.carParked(carNumber,carInfo);
+    let isParked = this.parkingLot.carParked(carNumber,carInfo);
+    return isParked;
     }
 }
 
-module.exports = ParkingAttendent;
+module.exports = new ParkingAttendent;
