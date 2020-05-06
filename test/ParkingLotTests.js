@@ -6,6 +6,7 @@ const expect = require('chai').expect;
 const airportSecurityPersonal = require('../main/AirportSecurityPersonal');
 const parkingAttendent = require('../main/ParkingAttendent');
 const driver = require('../main/DriverType');
+const carType = require('../main/CarType');
 
 describe('Tests on Parking Lot System', function() {
 
@@ -105,8 +106,9 @@ it('given handicap driver park car in nearest slot should return true', function
 
 // test to check that attendent should park the large car to lot that has max free space
 it.only('given large car should park in lot that has max free space', function() {
-    car = {name:"audi",type:LARGE};
-    let parkedInMaxFreeLot = parkingAttendent.parkTheCar(car);
+    let parkingLot = new ParkingLot(2,2,4);
+    car = {name:"audi",type:carType.LARGE};
+    let parkedInMaxFreeLot = parkingLot.carParked(car);
     expect(parkedInMaxFreeLot).to.eql(true);
 });
 

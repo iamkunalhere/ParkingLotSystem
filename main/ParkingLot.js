@@ -26,6 +26,9 @@ class ParkingLot {
             if (car.driverType == 'HANDICAP') {
                 this.findNearestSlot(car);
             }
+            if (car.type == 'LARGE') {
+                this.parkInMaxFreeLot(car);
+            }
             if (car.driverType == 'NORMAL') {
                 this.findSlot(car);
             }
@@ -98,6 +101,34 @@ class ParkingLot {
                 }
             }
         }   
+    }
+    // function to park large car in max free lot
+    parkInMaxFreeLot = (car) => {
+        let lotNum = null;
+        let slotNum = null;
+        let maxFreeLot = null;
+        let maxFreeLotSlot = null;
+        let maxCounter = 0;
+        let Counter = 0; 
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if(this.parkingLot[lot][slot] === null) {
+                    Counter++;
+                    lotNum = lot;
+                    slotNum = slot;   
+                }
+            }
+            if (Counter > maxCounter) {
+                maxCounter = Counter;
+                Counter = 0;
+                maxFreeLot = lotNum;
+                maxFreeLotSlot = slotNum;
+            }
+        }
+        this.parkingLot[maxFreeLot][maxFreeLotSlot] = car;
+        this.noOfCars++;
+        this.isParkingLotFull();
+        return true;
     }
     
 }
