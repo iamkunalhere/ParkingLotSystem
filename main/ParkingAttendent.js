@@ -5,8 +5,8 @@ class ParkingAttendent {
         this.parkingLot = new ParkingLot(); 
     }
 
-    parkTheCar(carNumber,carInfo,driverType) {
-    let isParked = this.parkingLot.carParked(carNumber,carInfo,driverType);
+    parkTheCar(car) {
+    let isParked = this.parkingLot.carParked(car);
     return isParked;
     }
 }

@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const ParkingLot = require('../main/ParkingLot');
+const ParkingLot = require('../main/ParkingLot.js');
 const sinon = require('sinon');
 const parkingLotOwner = require('../main/ParkingLotOwner');
 const expect = require('chai').expect;
@@ -9,30 +9,36 @@ const driver = require('../main/DriverType');
 
 describe('Tests on Parking Lot System', function() {
 
-    beforeEach(() => {
-        parkingLot = new ParkingLot();
-    });
-
 // test to check car is parked in parking lot or not 
 it('given car is parked should return true', function() {
-    let parked = parkingLot.carParked("car1","audi");
+    let parkingLot = new ParkingLot(1,1,2);
+    car = {name:"audi",driverType:driver.NORMAL}
+    let parked = parkingLot.carParked(car);
     assert.equal(true,parked);
 });
 
 // test to check car is unparked from the parking lot or not
 it('given car is unparked should return true', function() {
-    parkingLot.carParked("car1","Audi");
-    let unParked = parkingLot.carUnParked("car1")
+    let parkingLot = new ParkingLot(2,2,2);
+    car = {name:"audi",driverType:driver.NORMAL}
+    parkingLot.carParked(car);
+    let unParked = parkingLot.carUnParked(car);
     assert.equal(true,unParked);
 });
 
 // test to notify with message to parking lot owner if parking lot is full or not
 it('given parking lot is full should return message', function() {
     try {
-    parkingLot.carParked("car1","Audi");
-    parkingLot.carParked("car2","bmw");
-    parkingLot.carParked("car3","ford");
-    parkingLot.carParked("car4","benz");
+        let parkingLot = new ParkingLot(2,2,4);
+        let cars = [
+        {name:"audi",driverType:driver.NORMAL},
+        {name:"bmw",driverType:driver.NORMAL},
+        {name:"benz",driverType:driver.NORMAL},
+        {name:"ford",driverType:driver.NORMAL}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
     } catch (message) {
     assert.equal(message.message,'Parking lot is full');
     }
@@ -41,10 +47,18 @@ it('given parking lot is full should return message', function() {
 // test to notify with message to parking lot owner if parking lot has space again
 it('given parking lot has space again should return message', function(){
     try{
-    parkingLot.carParked("car1","Audi");
-    parkingLot.carParked("car2","bmw");
-    parkingLot.carParked("car3","ford");
-    parkingLot.carUnParked("car1");
+        let parkingLot = new ParkingLot(2,2,4);
+        let cars = [
+        {name:"audi",driverType:driver.NORMAL},
+        {name:"bmw",driverType:driver.NORMAL},
+        {name:"benz",driverType:driver.NORMAL}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
+        cars.map((car) => {
+            parkingLot.carUnParked(car);
+        });
     }catch(message) {
     assert.equal(message.message,'Parking lot has space again');
     }
@@ -52,44 +66,47 @@ it('given parking lot has space again should return message', function(){
 
 // test to check that car is parked by attendent
 it('given parking attendent park the car should return true', function(){
-    carInfo = {name:"audi",parkingTime:Date()}
-    let isParking = parkingAttendent.parkTheCar("car1",carInfo);
+    car = {name:"audi",parkingTime:Date()}
+    let isParking = parkingAttendent.parkTheCar(car);
     expect(isParking).to.eql(true);
 });
 
 // test to check that driver finds his car
 it('given driver finds his car should return car information', function(){
-    parkingLot.carParked("car1","audi");
-    let isFind = parkingLot.findCar("car1");
-    expect(isFind).to.eql("audi");
+    let parkingLot = new ParkingLot(1,1,2);
+    car = {name:"audi",driverType:driver.NORMAL}
+    parkingLot.carParked(car);
+    let isFind = parkingLot.findCar(car);
+    expect(0).to.eql(isFind.lot);
 });
 
 // test to check that parking lot owner should know when car is parked in lot
 it('given car is parked with time should return true', function() {
-    carInfo = {name:"audi",parkingTime:Date()};
-    let parkedOnTime  = parkingLot.carParked("car1",carInfo);
+    let parkingLot = new ParkingLot(1,1,2);
+    car = {name:"audi",parkingTime:Date()};
+    let parkedOnTime  = parkingLot.carParked(car);
     expect(parkedOnTime).to.eql(true);
     
 });
 
 // test to check that attendent should evenly park the cars in slots
 it('given car is parked evenly in slots should return true', function() {
-    carInfo = {name:"audi",parkingTime:Date()};
-    let isParkedEvenly = parkingAttendent.parkTheCar("car1",carInfo);
+    car = {name:"audi",parkingTime:Date()};
+    let isParkedEvenly = parkingAttendent.parkTheCar(car);
     expect(isParkedEvenly).to.eql(true);
 });
 
 // test to check that attendent should park handicap's car to the nearest slot in parking lot
 it('given handicap driver park car in nearest slot should return true', function() {
-    carInfo = {name:"audi",parkingTime:Date()};
-    let isParkNear = parkingAttendent.parkTheCar("car1",carInfo,driver.HANDICAP);
+    car = {name:"audi",parkingTime:Date(),driverType:driver.HANDICAP};
+    let isParkNear = parkingAttendent.parkTheCar(car);
     expect(isParkNear).to.eql(true);
 });
 
 });
 
 describe('Tests using Sinon', function(){
-    
+
     afterEach(function(){
         this.stub.restore();
     });
@@ -98,10 +115,15 @@ describe('Tests using Sinon', function(){
 it('given parking lot is full should return message', function() {
     this.stub = sinon.stub(parkingLotOwner,'parkingLotIsFull');
     try {
-    parkingLot.carParked("car1","Audi");
-    parkingLot.carParked("car2","bmw");
-    parkingLot.carParked("car3","ford");
-    parkingLot.carParked("car4","benz");
+    let parkingLot = new ParkingLot(2,2,4);
+    let cars = [
+        {name:"audi",driverType:driver.NORMAL},
+        {name:"bmw",driverType:driver.NORMAL},
+        {name:"benz",driverType:driver.NORMAL}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
     } catch (message) {
     expect(message.message).to.eql('Parking lot is full');
     }
@@ -111,10 +133,15 @@ it('given parking lot is full should return message', function() {
 it('given parking lot is full should return message', function() {
     this.stub = sinon.stub(airportSecurityPersonal,'parkingLotIsFull');
     try {
-    parkingLot.carParked("car1","Audi");
-    parkingLot.carParked("car2","bmw");
-    parkingLot.carParked("car3","ford");
-    parkingLot.carParked("car4","benz");
+    let parkingLot = new ParkingLot(2,2,4);
+    let cars = [
+        {name:"audi",driverType:driver.NORMAL},
+        {name:"bmw",driverType:driver.NORMAL},
+        {name:"benz",driverType:driver.NORMAL}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
     } catch (message) {
     expect(message.message).to.eql('Parking lot is full');
     }
@@ -122,12 +149,20 @@ it('given parking lot is full should return message', function() {
 
 // test to notify with message to parking lot owner if parking lot has space again
 it('given parking lot has space again should return message', function(){
-    try {
     this.stub = sinon.stub(parkingLotOwner,'parkingSpaceAvailable');
-    parkingLot.carParked("car1","Audi");
-    parkingLot.carParked("car2","bmw");
-    parkingLot.carParked("car3","ford");
-    parkingLot.carUnParked("car1");
+    try {
+    let parkingLot = new ParkingLot(2,2,4);
+        let cars = [
+        {name:"audi",driverType:driver.NORMAL},
+        {name:"bmw",driverType:driver.NORMAL},
+        {name:"benz",driverType:driver.NORMAL}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
+        cars.map((car) => {
+            parkingLot.carUnParked(car);
+        });
     } catch(message) {
     assert.equal(message.message,'Parking lot has space again');
     }

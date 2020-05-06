@@ -1,42 +1,62 @@
 const parkingLotOwner = require('../main/ParkingLotOwner');
 const airportSecurityPersonal = require('../main/AirportSecurityPersonal');
 class ParkingLot {
-    constructor() {
-        this.parkingLot = new Map();
-        this.counter = 0;
-        this.PARKING_LOT_CAPACITY = 9;
-        this.parkingSlots = [3,3,3];
-        this.slotCounter = 0;
+    constructor(lotsInParkingLot,capacityOfLot,capacityOfParkingLot) {
+        this.parkingLot;
+        this.getParkingLotStructure(lotsInParkingLot,capacityOfLot);
+        this.capacityOfParkingLot = capacityOfParkingLot;
+        this.noOfCars = 0;
     }
+
+    getParkingLotStructure(lotsInParkingLot,capacityOfLot) {
+        this.parkingLot = [];
+        for(let lot = 0; lot < lotsInParkingLot; lot++) {
+            this.parkingLot[lot] = [capacityOfLot];
+            for(let slot = 0; slot < capacityOfLot; slot++) {
+                this.parkingLot[lot][slot] = null;
+            }
+        }
+    }
+
     // function to park the car
-    carParked(carNumber,carInfo,driverType) {
-        if(this.isParkingLotFull()) {
-            return ('Parking lot is full');
+    carParked = (car) => {
+        if(typeof car === 'object' && car != null) {
+            if(this.isParkingLotFull()) {
+                throw new Error('Parking lot is full');
+            }
+            if (car.driverType == 'HANDICAP') {
+                this.findNearestSlot(car);
+            }
+            if (car.driverType == 'NORMAL') {
+                this.findSlot(car);
+            }
+            if (car.parkingTime != null) {
+                parkingLotOwner.getCarParkedTime(car.parkingTime);
+            }
         }
-        if (driverType = 'HANDICAP') {
-            let slot = this.findNearestSlot();
-            this.parkingSlots[slot] = carNumber;
+        else {
+            throw new Error('car must be object and cannot be null');
         }
-        this.parkingSlots.push(carNumber);
-        this.parkingLot.set(carNumber,carInfo);
-        if (carInfo.parkingTime != null) {
-        parkingLotOwner.getCarParkedTime(carInfo.parkingTime);
-        }
-        this.counter++;
         return true;
     }
     // function to unpark the car
-    carUnParked(carNumber) {
-        this.parkingLot.delete(carNumber);
-        this.counter--;
-        if (this.counter == this.PARKING_LOT_CAPACITY-1) {
-            parkingLotOwner.parkingSpaceAvailable();
-        }
-        return true;
+    carUnParked = (car) => {
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if(this.parkingLot[lot][slot] === car) {
+                    this.parkingLot[lot][slot] = null;
+                    this.noOfCars--;
+                    if (this.noOfCars == this.capacityOfParkingLot-1) {
+                        parkingLotOwner.parkingSpaceAvailable();
+                    }
+                    return true;
+                }
+            }
+        }   
     }
     // function to check parking lot is full or not
-    isParkingLotFull() {
-        if (this.counter == this.PARKING_LOT_CAPACITY) {
+    isParkingLotFull = () => {
+        if (this.noOfCars === this.capacityOfParkingLot) {
             parkingLotOwner.parkingLotIsFull();
             airportSecurityPersonal.parkingLotIsFull();
             return true;
@@ -44,18 +64,41 @@ class ParkingLot {
         return false;
     }
     //function to find car
-    findCar(carNumber) {
-        let isFind =  this.parkingLot.get(carNumber);
-        return isFind;
-    }
-    //function to find nearest slot in parking lot
-    findNearestSlot() {
-        for(let position = 0;position < this.parkingSlots.length; position++) {
-            if(this.parkingSlots[position] == undefined) {
-                return position;
+    findCar = (car) => {
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if(this.parkingLot[lot][slot] === car) {
+                    let carPosition = {lot:lot,slot:slot};
+                    return carPosition;
+                }
             }
-        }
-        return false;
+        }   
+    }
+    //function to find nearest slot in parking lot for handicap driver
+    findNearestSlot = (car) => {
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if(this.parkingLot[lot][slot] === null) {
+                    this.parkingLot[lot][slot] = car;
+                    this.noOfCars++;
+                    this.isParkingLotFull();
+                    return true;
+                }
+            }
+        }   
+    }
+    // function to park car for normal driver
+    findSlot = (car) => {
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if(this.parkingLot[slot][lot] === null) {
+                    this.parkingLot[slot][lot] = car;
+                    this.noOfCars++;
+                    this.isParkingLotFull();
+                    return true;
+                }
+            }
+        }   
     }
     
 }

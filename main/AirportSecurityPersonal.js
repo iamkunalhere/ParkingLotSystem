@@ -1,6 +1,6 @@
 class AirportSecurityPersonal {
     parkingLotIsFull() {
-        return ('Parking lot is full');
+        throw new Error('Parking lot is full');
     }
 }
 
