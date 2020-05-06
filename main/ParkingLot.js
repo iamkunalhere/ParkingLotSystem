@@ -2,14 +2,13 @@ const parkingLotOwner = require('../main/ParkingLotOwner');
 const airportSecurityPersonal = require('../main/AirportSecurityPersonal');
 class ParkingLot {
     constructor(lotsInParkingLot,capacityOfLot,capacityOfParkingLot) {
-        this.parkingLot;
+        this.parkingLot = [];
         this.getParkingLotStructure(lotsInParkingLot,capacityOfLot);
         this.capacityOfParkingLot = capacityOfParkingLot;
         this.noOfCars = 0;
     }
 
     getParkingLotStructure(lotsInParkingLot,capacityOfLot) {
-        this.parkingLot = [];
         for(let lot = 0; lot < lotsInParkingLot; lot++) {
             this.parkingLot[lot] = [capacityOfLot];
             for(let slot = 0; slot < capacityOfLot; slot++) {
@@ -91,8 +90,8 @@ class ParkingLot {
     findSlot = (car) => {
         for(let lot = 0; lot < this.parkingLot.length; lot++) {
             for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
-                if(this.parkingLot[slot][lot] === null) {
-                    this.parkingLot[slot][lot] = car;
+                if(this.parkingLot[lot][slot] === null) {
+                    this.parkingLot[lot][slot] = car;
                     this.noOfCars++;
                     this.isParkingLotFull();
                     return true;

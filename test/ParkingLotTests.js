@@ -103,6 +103,13 @@ it('given handicap driver park car in nearest slot should return true', function
     expect(isParkNear).to.eql(true);
 });
 
+// test to check that attendent should park the large car to lot that has max free space
+it.only('given large car should park in lot that has max free space', function() {
+    car = {name:"audi",type:LARGE};
+    let parkedInMaxFreeLot = parkingAttendent.parkTheCar(car);
+    expect(parkedInMaxFreeLot).to.eql(true);
+});
+
 });
 
 describe('Tests using Sinon', function(){
