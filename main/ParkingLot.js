@@ -158,6 +158,20 @@ class ParkingLot {
         }
         return carInfo;
     }
+    // function to get count by car brand
+    getCountByBrand = (brand) => {
+        let count = 0;
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if (this.parkingLot[lot][slot] != null ) {
+                    if (this.parkingLot[lot][slot].name === brand ) {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
 }
 
 module.exports = ParkingLot;

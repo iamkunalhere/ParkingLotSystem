@@ -153,7 +153,7 @@ it('given blue toyota cars should return location,number plate and name of car o
 });
 
 // test to check that police should know all parked BMW cars
-it.only('given all bmw cars should return the count', function() {
+it('given all bmw cars should return the count', function() {
     let parkingLot = new ParkingLot(3,3,9);
     let cars = [
         {owner:'kunal',name:"bmw",driverType:driver.NORMAL,color:'blue',number:'1111'},
