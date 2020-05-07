@@ -131,6 +131,27 @@ it('given white car should return location', function() {
     expect(locations[0][1]).to.eql(0);
 });
 
+// test to check that police should know location,number plate and name of car owner of blue toyota cars
+it.only('given blue toyota cars should return location,number plate and name of car owner', function() {
+    let parkingLot = new ParkingLot(3,3,9);
+    let cars = [
+        {owner:'kunal',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'1111'},
+        {owner:'rishi',name:"bmw",driverType:driver.NORMAL,color:'red',number:'1212'},
+        {owner:'pravin',name:"benz",driverType:driver.NORMAL,color:'white',number:'1313'},
+        {owner:'akshay',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'2222'},
+        {owner:'gaurav',name:"lexus",driverType:driver.NORMAL,color:'white',number:'1414'},
+        {owner:'prithvi',name:"maserati",driverType:driver.NORMAL,color:'white',number:'1515'}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
+    let carInfo = parkingLot.getCarInfo('toyota','blue');
+    expect(carInfo[0][0]).to.eql('kunal');
+    expect(carInfo[0][1]).to.eql('1111');
+    expect(carInfo[0][2]).to.eql(0);
+    expect(carInfo[0][3]).to.eql(0);
+});
+
 });
 
 describe('Tests using Sinon', function(){
