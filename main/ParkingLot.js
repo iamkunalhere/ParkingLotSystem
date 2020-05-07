@@ -131,7 +131,7 @@ class ParkingLot {
         return true;
     }
     // function to get information of car by its color
-    getInfoByColor(color){
+    getInfoByColor = (color) => {
         let locatios = [];
         for(let lot = 0; lot < this.parkingLot.length; lot++) {
             for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
@@ -143,6 +143,20 @@ class ParkingLot {
             }
         }
         return locatios;
+    }
+    // function to get all information of car
+    getCarInfo = (brand,color) => {
+        let carInfo = [];
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if (this.parkingLot[lot][slot] != null ) {
+                    if (this.parkingLot[lot][slot].color === color && this.parkingLot[lot][slot].name === brand ) {
+                        carInfo.push([this.parkingLot[lot][slot].owner,this.parkingLot[lot][slot].number,lot,slot]); 
+                    }
+                }
+            }
+        }
+        return carInfo;
     }
 }
 
