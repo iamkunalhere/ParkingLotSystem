@@ -152,6 +152,24 @@ it('given blue toyota cars should return location,number plate and name of car o
     expect(carInfo[0][3]).to.eql(0);
 });
 
+// test to check that police should know all parked BMW cars
+it.only('given all bmw cars should return the count', function() {
+    let parkingLot = new ParkingLot(3,3,9);
+    let cars = [
+        {owner:'kunal',name:"bmw",driverType:driver.NORMAL,color:'blue',number:'1111'},
+        {owner:'rishi',name:"bmw",driverType:driver.NORMAL,color:'red',number:'1212'},
+        {owner:'pravin',name:"benz",driverType:driver.NORMAL,color:'white',number:'1313'},
+        {owner:'akshay',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'2222'},
+        {owner:'gaurav',name:"lexus",driverType:driver.NORMAL,color:'white',number:'1414'},
+        {owner:'prithvi',name:"bmw",driverType:driver.NORMAL,color:'white',number:'1515'}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
+    let count = parkingLot.getCountByBrand('bmw');
+    expect(count).to.eql(3);
+});
+
 });
 
 describe('Tests using Sinon', function(){
