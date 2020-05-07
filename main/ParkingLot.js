@@ -130,7 +130,20 @@ class ParkingLot {
         this.isParkingLotFull();
         return true;
     }
-    
+    // function to get information of car by its color
+    getInfoByColor(color){
+        let locatios = [];
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if (this.parkingLot[lot][slot] != null ) {
+                    if (this.parkingLot[lot][slot].color === color ) {
+                        locatios.push([lot,slot]); 
+                    }
+                }
+            }
+        }
+        return locatios;
+    }
 }
 
 module.exports = ParkingLot;

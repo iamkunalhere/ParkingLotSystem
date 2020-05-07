@@ -113,8 +113,8 @@ it('given large car should park in lot that has max free space', function() {
 });
 
 // test to check that police department should know location of all white cars
-it.only('given white car should return location', function() {
-    let parkingLot = new ParkingLot(2,2,9);
+it('given white car should return location', function() {
+    let parkingLot = new ParkingLot(3,3,9);
     let cars = [
         {name:"audi",driverType:driver.NORMAL,color:'white'},
         {name:"bmw",driverType:driver.NORMAL,color:'red'},
