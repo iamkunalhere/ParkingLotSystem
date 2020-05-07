@@ -105,11 +105,30 @@ it('given handicap driver park car in nearest slot should return true', function
 });
 
 // test to check that attendent should park the large car to lot that has max free space
-it.only('given large car should park in lot that has max free space', function() {
+it('given large car should park in lot that has max free space', function() {
     let parkingLot = new ParkingLot(2,2,4);
     car = {name:"audi",type:carType.LARGE};
     let parkedInMaxFreeLot = parkingLot.carParked(car);
     expect(parkedInMaxFreeLot).to.eql(true);
+});
+
+// test to check that police department should know location of all white cars
+it.only('given white car should return location', function() {
+    let parkingLot = new ParkingLot(2,2,9);
+    let cars = [
+        {name:"audi",driverType:driver.NORMAL,color:'white'},
+        {name:"bmw",driverType:driver.NORMAL,color:'red'},
+        {name:"benz",driverType:driver.NORMAL,color:'white'},
+        {name:"ford",driverType:driver.NORMAL,color:'green'},
+        {name:"lexus",driverType:driver.NORMAL,color:'white'},
+        {name:"maserati",driverType:driver.NORMAL,color:'white'}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
+    let locations = parkingLot.getInfoByColor('white');
+    expect(locations[0][0]).to.eql(0);
+    expect(locations[0][1]).to.eql(0);
 });
 
 });
