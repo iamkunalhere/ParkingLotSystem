@@ -116,19 +116,21 @@ it('given large car should park in lot that has max free space', function() {
 it('given white car should return location', function() {
     let parkingLot = new ParkingLot(3,3,9);
     let cars = [
-        {name:"audi",driverType:driver.NORMAL,color:'white'},
-        {name:"bmw",driverType:driver.NORMAL,color:'red'},
-        {name:"benz",driverType:driver.NORMAL,color:'white'},
-        {name:"ford",driverType:driver.NORMAL,color:'green'},
-        {name:"lexus",driverType:driver.NORMAL,color:'white'},
-        {name:"maserati",driverType:driver.NORMAL,color:'white'}
+        {owner:'kunal',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'1111'},
+        {owner:'rishi',name:"bmw",driverType:driver.NORMAL,color:'red',number:'1212'},
+        {owner:'pravin',name:"benz",driverType:driver.NORMAL,color:'white',number:'1313'},
+        {owner:'akshay',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'2222'},
+        {owner:'gaurav',name:"lexus",driverType:driver.NORMAL,color:'white',number:'1414'},
+        {owner:'prithvi',name:"maserati",driverType:driver.NORMAL,color:'white',number:'1515'}
         ];
         cars.map((car) => {
             parkingLot.carParked(car);
         });
-    let locations = parkingLot.getInfoByColor('white');
-    expect(locations[0][0]).to.eql(0);
-    expect(locations[0][1]).to.eql(0);
+    let carInfo = parkingLot.getCarInfo(null,'white');
+    expect(carInfo[0][0]).to.eql('gaurav');
+    expect(carInfo[0][1]).to.eql('1414');
+    expect(carInfo[0][2]).to.eql(1);
+    expect(carInfo[0][3]).to.eql(1);
 });
 
 // test to check that police should know location,number plate and name of car owner of blue toyota cars
@@ -156,8 +158,8 @@ it('given blue toyota cars should return location,number plate and name of car o
 it('given all bmw cars should return the count', function() {
     let parkingLot = new ParkingLot(3,3,9);
     let cars = [
-        {owner:'kunal',name:"bmw",driverType:driver.NORMAL,color:'blue',number:'1111'},
-        {owner:'rishi',name:"bmw",driverType:driver.NORMAL,color:'red',number:'1212'},
+        {owner:'kunal',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'1111'},
+        {owner:'rishi',name:"ford",driverType:driver.NORMAL,color:'red',number:'1212'},
         {owner:'pravin',name:"benz",driverType:driver.NORMAL,color:'white',number:'1313'},
         {owner:'akshay',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'2222'},
         {owner:'gaurav',name:"lexus",driverType:driver.NORMAL,color:'white',number:'1414'},
@@ -166,8 +168,11 @@ it('given all bmw cars should return the count', function() {
         cars.map((car) => {
             parkingLot.carParked(car);
         });
-    let count = parkingLot.getCountByBrand('bmw');
-    expect(count).to.eql(3);
+    let carInfo = parkingLot.getCarInfo('bmw',null);
+    expect(carInfo[0][0]).to.eql('prithvi');
+    expect(carInfo[0][1]).to.eql('1515');
+    expect(carInfo[0][2]).to.eql(2);
+    expect(carInfo[0][3]).to.eql(1);
 });
 
 });
