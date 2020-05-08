@@ -115,6 +115,7 @@ it('given large car should park in lot that has max free space', function() {
 // test to check that police department should know location of all white cars
 it('given white car should return location', function() {
     let parkingLot = new ParkingLot(3,3,9);
+    try {
     let cars = [
         {owner:'kunal',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'1111'},
         {owner:'rishi',name:"bmw",driverType:driver.NORMAL,color:'red',number:'1212'},
@@ -131,11 +132,15 @@ it('given white car should return location', function() {
     expect(carInfo[0][1]).to.eql('1414');
     expect(carInfo[0][2]).to.eql(1);
     expect(carInfo[0][3]).to.eql(1);
+    } catch (message) {
+        assert.equal(message.message,'function should have arguments');
+    }
 });
 
 // test to check that police should know location,number plate and name of car owner of blue toyota cars
 it('given blue toyota cars should return location,number plate and name of car owner', function() {
     let parkingLot = new ParkingLot(3,3,9);
+    try {
     let cars = [
         {owner:'kunal',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'1111'},
         {owner:'rishi',name:"bmw",driverType:driver.NORMAL,color:'red',number:'1212'},
@@ -152,11 +157,15 @@ it('given blue toyota cars should return location,number plate and name of car o
     expect(carInfo[0][1]).to.eql('1111');
     expect(carInfo[0][2]).to.eql(0);
     expect(carInfo[0][3]).to.eql(0);
+    } catch (message) {
+        assert.equal(message.message,'function should have arguments');
+    }
 });
 
 // test to check that police should know all parked BMW cars
 it('given all bmw cars should return the count', function() {
     let parkingLot = new ParkingLot(3,3,9);
+    try {
     let cars = [
         {owner:'kunal',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'1111'},
         {owner:'rishi',name:"ford",driverType:driver.NORMAL,color:'red',number:'1212'},
@@ -173,6 +182,9 @@ it('given all bmw cars should return the count', function() {
     expect(carInfo[0][1]).to.eql('1515');
     expect(carInfo[0][2]).to.eql(2);
     expect(carInfo[0][3]).to.eql(1);
+    } catch (message) {
+        assert.equal(message.message,'function should have arguments');
+    }
 });
 
 });
