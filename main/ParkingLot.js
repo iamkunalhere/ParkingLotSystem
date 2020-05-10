@@ -147,5 +147,24 @@ class ParkingLot {
         }
         throw new Error('function should have arguments');
     }
+    // function to get information of car on its parking time
+    getCarInfoParkedBeforeMinutes = (beforeMinutes) => {
+        let carInfo = [];
+        let today = new Date();
+        let currentTime = today.getMinutes();
+        if (beforeMinutes != null) {
+            for(let lot = 0; lot < this.parkingLot.length; lot++) {
+                for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                    if (this.parkingLot[lot][slot] != null ) {
+                        if (currentTime - this.parkingLot[lot][slot].parkingTime <= beforeMinutes) {
+                            carInfo.push([this.parkingLot[lot][slot].owner,this.parkingLot[lot][slot].number,lot,slot]);
+                        }
+                    }
+                }
+            }
+            return carInfo;
+        }
+        throw new Error('function should have arguments')
+    }
 }
 module.exports = ParkingLot;
