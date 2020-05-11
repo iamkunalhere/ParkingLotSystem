@@ -237,6 +237,25 @@ it('given cars when of type small and handicaps should return locatio', function
         }
 });
 
+// test to check that police should know all cars to investigate fraudulent plates
+it.only('given cars when parked all should know all cars information', function() {
+    let parkingLot = new ParkingLot(3,3,9);
+    let cars = [
+        {owner:'kunal',name:"toyota",driverType:driver.HANDICAP,color:'blue',number:'1111',type:carType.SMALL},
+        {owner:'rishi',name:"ford",driverType:driver.NORMAL,color:'red',number:'1212'},
+        {owner:'pravin',name:"benz",driverType:driver.NORMAL,color:'white',number:'1313'},
+        {owner:'akshay',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'2222'},
+        {owner:'gaurav',name:"lexus",driverType:driver.NORMAL,color:'white',number:'1414'},
+        {owner:'prithvi',name:"bmw",driverType:driver.NORMAL,color:'white',number:'1515'}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
+        let carInfo = parkingLot.getAllCarsInformation();
+        expect(carInfo[5][0]).to.eql(2);
+        expect(carInfo[5][1]).to.eql(1);
+        expect(carInfo[5][2]).to.eql(6);
+});
 
 });
 
