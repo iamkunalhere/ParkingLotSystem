@@ -214,6 +214,26 @@ it('given cars when parked before 30 minutes should return car information', fun
         }
 });
 
+// test to check that police want to know the location of all small and handicap drivers cars
+it.only('given cars when of type small and handicaps should return locatio', function() {
+    let parkingLot = new ParkingLot(3,3,9);
+    let cars = [
+        {owner:'kunal',name:"toyota",driverType:driver.HANDICAP,color:'blue',number:'1111',type:carType.SMALL},
+        {owner:'rishi',name:"ford",driverType:driver.NORMAL,color:'red',number:'1212'},
+        {owner:'pravin',name:"benz",driverType:driver.NORMAL,color:'white',number:'1313'},
+        {owner:'akshay',name:"toyota",driverType:driver.NORMAL,color:'blue',number:'2222'},
+        {owner:'gaurav',name:"lexus",driverType:driver.NORMAL,color:'white',number:'1414'},
+        {owner:'prithvi',name:"bmw",driverType:driver.NORMAL,color:'white',number:'1515'}
+        ];
+        cars.map((car) => {
+            parkingLot.carParked(car);
+        });
+        let carInfo = getInfoByTypeAndDriver('SMALL','HANDICAP');
+        expect(carInfo[0][0]).to.eql(0);
+        expect(carInfo[0][1]).to.eql(0);
+});
+
+
 });
 
 describe('Tests using Sinon', function(){
