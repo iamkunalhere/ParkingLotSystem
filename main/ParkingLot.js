@@ -133,7 +133,7 @@ class ParkingLot {
     // function to get all information of car
     getCarInfo = (brand,color) => {
         let carInfo = [];
-        if (brand === null && color === null) {
+        if (brand != null || color != null) {
             for(let lot = 0; lot < this.parkingLot.length; lot++) {
                 for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
                     if (this.parkingLot[lot][slot] != null ) {
@@ -158,6 +158,23 @@ class ParkingLot {
                     if (this.parkingLot[lot][slot] != null ) {
                         if (currentTime - this.parkingLot[lot][slot].parkingTime <= beforeMinutes) {
                             carInfo.push([this.parkingLot[lot][slot].owner,this.parkingLot[lot][slot].number,lot,slot]);
+                        }
+                    }
+                }
+            }
+            return carInfo;
+        }
+        throw new Error('function should have arguments')
+    }
+    // function to know location of cars by car type and drivers type
+    getCarInfoByTypeAndDriver = (carType,driverType) => {
+        let carInfo = [];
+        if (carType != null || driverType != null) {
+            for(let lot = 0; lot < this.parkingLot.length; lot++) {
+                for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                    if (this.parkingLot[lot][slot] != null ) {
+                        if (this.parkingLot[lot][slot].type === carType && this.parkingLot[lot][slot].driverType === driverType ) {
+                            carInfo.push([lot,slot]);
                         }
                     }
                 }
