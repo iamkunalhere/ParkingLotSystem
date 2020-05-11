@@ -183,5 +183,21 @@ class ParkingLot {
         }
         throw new Error('function should have arguments')
     }
+    // function to know all cars
+    getAllCarsInformation = () => {
+        let carInfo = [];
+        let counter = 1;
+        for(let lot = 0; lot < this.parkingLot.length; lot++) {
+            for(let slot = 0; slot < this.parkingLot[lot].length; slot++) {
+                if(this.parkingLot[lot][slot] != null) {
+                    carInfo.push([lot,slot,counter++])
+                }
+            }
+        }
+        if(carInfo != null) {
+            return carInfo;
+        }
+        return false;
+    }
 }
 module.exports = ParkingLot;

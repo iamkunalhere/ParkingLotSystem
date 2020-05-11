@@ -238,7 +238,7 @@ it('given cars when of type small and handicaps should return locatio', function
 });
 
 // test to check that police should know all cars to investigate fraudulent plates
-it.only('given cars when parked all should know all cars information', function() {
+it('given cars when parked all should know all cars information', function() {
     let parkingLot = new ParkingLot(3,3,9);
     let cars = [
         {owner:'kunal',name:"toyota",driverType:driver.HANDICAP,color:'blue',number:'1111',type:carType.SMALL},
